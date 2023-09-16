@@ -1,0 +1,14 @@
+[
+  {
+    "deploy_token": "TOKEN",
+    "shell_command": "COMMAND"
+  },
+  {
+    "deploy_token": "TOKEN2",
+    "shell_command": "COMMAND2"
+  },
+  {
+    "deploy_token": "TOKEN3",
+    "shell_command": "COMMAND3"
+  }
+]
