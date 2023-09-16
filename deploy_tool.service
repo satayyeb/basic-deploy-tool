@@ -1,0 +1,11 @@
+[Unit]
+Description=Running deploy-tool on port 8005
+After=network.target
+
+[Service]
+Type=simple
+Restart=on-failure
+ExecStart=/opt/basic-deploy-tool/.venv/bin/python -m uvicorn /opt/basic-deploy-tool/main:app --port 8005
+
+[Install]
+WantedBy=multi-user.target
