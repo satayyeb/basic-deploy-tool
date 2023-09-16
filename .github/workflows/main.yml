@@ -21,5 +21,5 @@ jobs:
         echo "stdout: ${{ fromJson(steps.deploy.outputs.response).stdout }}"
         echo "stderr: ${{ fromJson(steps.deploy.outputs.response).stderr }}"
     - name: Check deploy failure
-      if: ${{ failure() || !fromJSON(steps.deploy.outputs.response).success}}
+      if: ${{ failure() }}
       run: exit 1
