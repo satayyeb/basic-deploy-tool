@@ -20,7 +20,7 @@ def verify_token(req: Request):
 @app.get("/deploy-from-git")
 async def deploy(config: dict = Depends(verify_token)):
     result = subprocess.run(config['shell_command'], shell=True, capture_output=True)
-    success, detail = (True, 'Deployed successfully.') if not result.stderr else (False, 'Deploy failed.')
+    success, detail = (True, 'Deployed successfully.') if result.returncode == 0 else (False, 'Deploy failed.')
     return {
         'success': success,
         'detail': detail,
