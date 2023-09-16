@@ -1,0 +1,32 @@
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+
+env:
+  DEPLOY_TOKEN: jrI6OqLIx8JVLbPLs7rGIJOojQ9FpRcxoh8GobHv-Zh_M-rKFhECaQDKRMTZAkwccO6PhuE7TUYrnKWG
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Send Deploy Request
+      id: deploy
+      uses: fjogeleit/http-request-action@v1
+      with:
+        url: 'https://alitayyeb.ir/deploy-from-git/'
+        method: 'POST'
+        customHeaders: '{"Authorization": "${{ DEPLOY_TOKEN }}"}'
+    - name: Print Deploy Response
+      run: |
+        echo ${{ fromJson(steps.deploy.outputs.response).detail }}
+        echo ${{ fromJson(steps.deploy.outputs.response).stdout }}
+        echo ${{ fromJson(steps.deploy.outputs.response).stderr }}
+    - name: The job has failed
+      if: ${{ failure() || fromJSON(steps.deploy.outputs.response.success)}}
+    - name: The job has succeeded
+      if: ${{ success() }}
+      
+      
+        
