@@ -14,7 +14,7 @@ jobs:
         url: 'https://alitayyeb.ir/deploy-from-git'
         method: 'GET'
         timeout: 20000
-        customHeaders: '{"Authorization": "${{ secrets.DEPLOY_KEY }}"}'
+        customHeaders: '{"Authorization": "${{ secrets.DEPLOY_TOKEN }}"}'
     - name: Log Deploy Response
       run: |
         echo "detail: ${{ fromJson(steps.deploy.outputs.response).detail }}"
