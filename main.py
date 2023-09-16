@@ -20,4 +20,5 @@ def verify_token(req: Request):
 @app.get("/deploy-from-git")
 async def deploy(config: dict = Depends(verify_token)):
     result = subprocess.run(config['shell_command'], shell=True, capture_output=True)
-    return {'detail': 'Executed', 'stdout': result.stdout.decode('utf-8'), 'stderr': result.stderr.decode('utf-8')}
+    detail = 'Deployed successfully.' if result.stderr is None else 'Deploy failed.'
+    return {'detail': detail, 'stdout': result.stdout.decode('utf-8'), 'stderr': result.stderr.decode('utf-8')}
