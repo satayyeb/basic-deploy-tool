@@ -1,5 +1,5 @@
 import json
-import os
+import subprocess
 
 from fastapi import FastAPI, Depends, HTTPException, Request
 
@@ -19,5 +19,5 @@ def verify_token(req: Request):
 
 @app.get("/deploy-from-git")
 async def deploy(config: dict = Depends(verify_token)):
-    os.system(config['shell_command'])
-    return {'detail': 'Deployed'}
+    log = subprocess.check_output(config['shell_command'], shell=True)
+    return {'detail': 'Deployed', 'log': log}
