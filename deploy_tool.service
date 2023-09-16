@@ -5,7 +5,8 @@ After=network.target
 [Service]
 Type=simple
 Restart=on-failure
-ExecStart=cd /opt/basic-deploy-tool/; .venv/bin/python -m uvicorn main:app --port 8005
+WorkingDirectory=/opt/basic-deploy-tool/
+ExecStart=/opt/basic-deploy-tool/.venv/bin/uvicorn main:app --port 8005
 
 [Install]
 WantedBy=multi-user.target
